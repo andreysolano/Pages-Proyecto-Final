@@ -1,4 +1,4 @@
-// Este programa usa la libreria ml5js 
+// Este programa usa la libreria ml5js :)
 // Usando PoseNote que es un protocolo de Learning Machine
 // https://www.tensorflow.org/lite/models/pose_estimation/overview
 // https://github.com/tensorflow/tfjs-models/tree/master/posenet
