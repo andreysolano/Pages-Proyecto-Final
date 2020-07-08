@@ -29,6 +29,13 @@ let pincelR = 0;
 let pincelG = 0;
 let pincelB = 0;
 
+let m_izqx;
+let m_izqy;
+let sel_ellipse=0;
+let sel_quad=0;
+let sel_square=0;
+let sel_triangle=0;
+
 function preload(){
   imgBorr = loadImage('data/borrador.png');
   imgGuar = loadImage('data/guardar.png');
@@ -124,45 +131,40 @@ function draw() {
   
   let d = dist(nose.x, nose.y, eye1X, eye1Y);
   
-  if(canvasUsed == 0){
-    if (l_Wrist.y >=70){ //Cuando se está escogiendo el color no se dibuja
-      canvas0.noStroke();
-      canvas0.fill(pincelR, pincelG, pincelB);        
-      canvas0.ellipse(r_Wrist.x, r_Wrist.y, d);
-    }
-    image(canvas0, 0, 0);
-  }else{
-    if(canvasUsed == 1){
-      if (l_Wrist.y >=70){
-        canvas1.noStroke();
-        canvas1.fill(pincelR, pincelG, pincelB);        
-        canvas1.ellipse(r_Wrist.x, r_Wrist.y, d);
-      }
-      image(canvas1, 0, 0);
-    }else{
-      if(canvasUsed == 2){
-        if (l_Wrist.y >=70){
-          canvas2.noStroke();
-          canvas2.fill(pincelR, pincelG, pincelB);        
-          canvas2.ellipse(r_Wrist.x, r_Wrist.y, d);
-        }
-        image(canvas2, 0, 0);
-      }else{
-        if(canvasUsed == 3){
-          if (l_Wrist.y >=70){
-            canvas3.noStroke();
-            canvas3.fill(pincelR, pincelG, pincelB);        
-            canvas3.ellipse(r_Wrist.x, r_Wrist.y, d);
-          }
-          image(canvas3, 0, 0);
-        }
-      }
-    }
-  }
+ canvas.noStroke();
+ canvas.fill(0);
+ canvas.ellipse (470,450,50);
+ canvas.quad (400-20, 450-20, 400+30, 450-30, 400+15, 450+15, 400-25, 450+25);
+ canvas.square (320-30, 425,50);
+ canvas.triangle (220-40,470,220,470-50,220+40,470);
+ 
+        //<-------**
+figuras(l_Wrist.x, l_Wrist.y);
+canvas.noStroke();
+canvas.fill(pincelR, pincelG, pincelB);
+ if (sel_ellipse==1) {
+
+canvas.ellipse(r_Wrist.x, r_Wrist.y, d);
+
+} else if (sel_quad==1) {
   
+canvas.quad (r_Wrist.x+10-d, r_Wrist.y+10-d, r_Wrist.x+d, r_Wrist.y-d, r_Wrist.x-10+d, r_Wrist.y-10+d, r_Wrist.x+5-d, r_Wrist.y-5+d);
+
+} else if (sel_square==1){
+ 
+canvas.square (r_Wrist.x, r_Wrist.y, d);
+
+} else if (sel_triangle==1) {
+  
+canvas.triangle(r_Wrist.x-5-d, r_Wrist.y+5+d, r_Wrist.x, r_Wrist.y-d, r_Wrist.x+5+d, r_Wrist.y+5+d);
+
+}
+
+
+  
+  image(canvas, 0, 0);
 
   image(pointer, l_Wrist.x, l_Wrist.y, d, d );  
-  
   
   boton1.show();
   boton2.show();
@@ -198,4 +200,40 @@ function draw() {
   botonFiltro0.setFiltro();
   botonFiltro1.setFiltro();
   botonFiltro2.setFiltro();  
+}
+
+function figuras( m_izqx,  m_izqy) {
+
+ if((470-50)<=m_izqx && m_izqx<= (470+50) && (450-50) <= m_izqy  && m_izqy <= (450+50) /*|| sel_ellipse ==1*/){
+
+sel_ellipse=1;
+sel_quad=0;
+sel_square=0;
+sel_triangle=0;
+
+ } 
+ if((400-25)<=m_izqx && m_izqx<= (400+30) && (450-30) <= m_izqy && m_izqy <= (450+25) /*|| sel_quad==1*/){
+
+sel_ellipse=0;
+sel_quad=1;
+sel_square=0;
+sel_triangle=0;
+
+}
+ if((320-30)<=m_izqx && m_izqx<= (320-30+50) && 425 <= m_izqy && m_izqy<= (425+50)/* || sel_square==true*/){
+ 
+sel_ellipse=0;
+sel_quad=0;
+sel_square=1;
+sel_triangle=0;
+
+}
+ if((220-40)<=m_izqx && m_izqx<= (220+40) && (470-50) <= m_izqy  && m_izqy <= 470/* || sel_triang==true*/){
+
+sel_ellipse=0;
+sel_quad=0;
+sel_square=0;
+sel_triangle=1;
+
+  }
 }
