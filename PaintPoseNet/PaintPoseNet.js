@@ -194,7 +194,7 @@ function draw() {
 
 
 
-  image(canvas0, 0, 0);
+
 
   image(pointer, l_Wrist.x, l_Wrist.y, d, d );  
 
